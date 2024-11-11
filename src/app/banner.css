@@ -1,0 +1,134 @@
+.banner {
+    background-color: white;
+    text-align: center;
+
+}
+.banner img {
+    max-width: 100%;
+}
+
+/* Estilo personalizado para o carrossel */
+.carousel-custom {
+    max-width: 2000px; /* Define a largura máxima do carrossel */
+    margin: 0 auto;  /* Centraliza o carrossel */
+  }
+  
+  /* Imagens do carrossel */
+  .carousel-img {
+    object-fit: cover; /* Faz a imagem se ajustar ao tamanho do carrossel sem distorcer */
+    height: 300px; /* Define a altura das imagens */
+  }
+  /* banner.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4; /* Fundo claro para contraste */
+    color: #333; /* Texto escuro para boa legibilidade */
+  }
+  
+  .header, .banner {
+    background-color: #4B5320; /* Verde militar para header/banner */
+    color: white;
+  }
+  
+  .card {
+    background-color: #D2B48C; /* Beige claro para dar contraste com os outros elementos */
+    border: 1px solid #556B2F; /* Bordas verdes */
+  }
+  
+  .card-title {
+    color: #2F4F4F; /* Título da card em cinza escuro */
+  }
+  
+  .card-footer {
+    background-color: #556B2F; /* Fundo verde para rodapé da card */
+  }
+  
+  .button {
+    background-color: #FFD700; /* Amarelo dourado para destaque de botões */
+    color: #000000; /* Texto do botão preto */
+    border: none;
+  }
+  
+  .carousel-custom .carousel-item img {
+    max-height: 300px; /* Limitar altura das imagens do carrossel */
+    object-fit: cover;
+  }
+  
+  .carousel-caption {
+    background-color: rgba(0, 0, 0, 0.5); /* Sobrepor o texto da legenda com fundo preto transparente */
+    color: white;
+  }
+  
+  footer {
+    background-color: #2F4F4F; /* Cinza escuro para o rodapé */
+    color: white;
+  }
+  
+  a {
+    color: #FFD700; /* Links com amarelo dourado */
+    text-decoration: none;
+  }
+  
+  a:hover {
+    color: #D2B48C; /* Cor do link ao passar o mouse */
+  }
+  /* Altere a cor do fundo do menu */
+.navbar {
+  background-color: #4B5320; /* Verde militar */
+}
+
+/* Alterar a cor dos itens do menu */
+.navbar-nav .nav-link {
+  color: #D2B48C; /* Cor bege claro para os itens */
+}
+
+.navbar-nav .nav-link:hover {
+  color: #FFD700; /* Cor amarela dourada ao passar o mouse */
+}
+
+/* Alterar a cor do texto do logo ou título no menu */
+.navbar-brand {
+  color: #FFD700; /* Dourado para o nome da marca ou logo */
+}
+
+.navbar-nav .nav-item.active .nav-link {
+  color: #000000; /* Cor preta para o item ativo */
+}
+
+/* Alterar o fundo do menu quando o menu é colapsado (em dispositivos móveis) */
+.navbar-collapse {
+  background-color: #556B2F; /* Verde mais escuro */
+}
+
+/* Estilo do botão de alternância no menu para dispositivos móveis */
+.navbar-toggler {
+  border-color: #FFD700; /* Dourado para o botão de alternância */
+}
+
+.navbar-toggler-icon {
+  background-color: #FFD700; /* Dourado para o ícone de alternância */
+}
+/* Cor de fundo da página */
+body {
+    background-color: #2F4F4F; /* Verde escuro */
+    color: #FFF; /* Texto branco para contraste */
+  }
+  
+  /* Cor do menu */
+  .navbar {
+    background-color: #556B2F; /* Verde mais escuro */
+  }
+  
+  /* Cor de fundo da seção banner */
+  .banner {
+    background-color: #3B5323; /* Verde oliva */
+    padding: 20px;
+  }
+  
+  /* Cor do conteúdo */
+  .container {
+    background-color: #4B5320; /* Verde militar para o conteúdo */
+    padding: 30px;
+    border-radius: 8px; /* Bordas arredondadas para suavizar */
+  }
+  
