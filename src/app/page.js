@@ -2,13 +2,24 @@
 import './banner.css';
 import Pagina from "@/components/Pagina";
 import { Button, Card, Col, Row, Carousel } from "react-bootstrap";
+import { useEffect, useState } from "react";
 
 export default function HomePage() {
-  const equipamentos = JSON.parse(localStorage.getItem("equipamentos")) || [];
-  const equipes = JSON.parse(localStorage.getItem("equipes")) || [];
-  const eventos = JSON.parse(localStorage.getItem("eventos")) || [];
-  const Jogadores = JSON.parse(localStorage.getItem("Jogadores")) || [];
-  const locaisdejogos = JSON.parse(localStorage.getItem("locaisdejogos")) || [];
+  const [equipamentos, setEquipamentos] = useState([]);
+  const [equipes, setEquipes] = useState([]);
+  const [eventos, setEventos] = useState([]);
+  const [Jogadores, setJogadores] = useState([]);
+  const [locaisdejogos, setLocaisdejogos] = useState([]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setEquipamentos(JSON.parse(localStorage.getItem("equipamentos")) || []);
+      setEquipes(JSON.parse(localStorage.getItem("equipes")) || []);
+      setEventos(JSON.parse(localStorage.getItem("eventos")) || []);
+      setJogadores(JSON.parse(localStorage.getItem("Jogadores")) || []);
+      setLocaisdejogos(JSON.parse(localStorage.getItem("locaisdejogos")) || []);
+    }
+  }, []);
 
   const lista = [
     {
@@ -50,11 +61,6 @@ export default function HomePage() {
 
   return (
     <Pagina>
-      <header className="banner">
-        {/* Remover a imagem do banner */}
-      </header>
-
-      {/* Carrossel menor e estreito */}
       <Carousel className="my-4 carousel-custom">
         <Carousel.Item>
           <img
@@ -62,10 +68,6 @@ export default function HomePage() {
             src="https://images.squarespace-cdn.com/content/v1/564b4b09e4b082acc13d17e6/1569991734571-2D630SJXVYH7M6RS3RWQ/MSR.jpg?format=1500w"
             alt="Imagem de Airsoft 1"
           />
-          <Carousel.Caption>
-            <h3>Armas de Airsoft</h3>
-            <p>Veja a seleção das melhores armas de Airsoft disponíveis.</p>
-          </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
           <img
@@ -73,10 +75,6 @@ export default function HomePage() {
             src="https://airsofts.com.br/wp-content/uploads/2021/08/BANNER_DESKTOP_1920x527-AIRSOFTS_OUT-2.jpg"
             alt="Imagem de Airsoft 2"
           />
-          <Carousel.Caption>
-            <h3>Equipamentos Táticos</h3>
-            <p>Explore os equipamentos táticos para uma experiência imersiva.</p>
-          </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
           <img
@@ -84,30 +82,60 @@ export default function HomePage() {
             src="https://tubaraocenter.fbitsstatic.net/media/banner-airsoft.png?v=202410160851"
             alt="Imagem de Airsoft 3"
           />
-          <Carousel.Caption>
-            <h3>Campos de Jogo</h3>
-            <p>Confira os melhores campos de airsoft para jogos intensos.</p>
-          </Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="d-block w-100 carousel-img"
+            src="https://images.tcdn.com.br/img/img_prod/1228426/1687314140_banner_02.png"
+            alt="Imagem de Airsoft 3"
+          />
         </Carousel.Item>
       </Carousel>
 
-      {/* Cartões com links */}
       <Row md={4}>
         {lista.map((item) => (
           <Col className="py-3" key={item.nome}>
-            <Card style={{ height: "100%" }}>
-              <Card.Img src={item.imagem} style={{ height: "100%" }} />
+            <Card
+              style={{
+                height: "100%",
+                border: "none",
+                borderRadius: "15px",
+                boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
+                overflow: "hidden",
+                transition: "transform 0.3s",
+              }}
+              className="card-modern"
+            >
+              <Card.Img
+                src={item.imagem}
+                style={{
+                  height: "200px",
+                  objectFit: "cover",
+                }}
+              />
               <Card.Body>
-                <Card.Title>{item.nome}</Card.Title>
-                Cadastrados: {item.quantidade}
+                <Card.Title style={{ fontSize: "1.25rem", fontWeight: "bold" }}>
+                  {item.nome}
+                </Card.Title>
+                <p style={{ fontSize: "0.9rem" }}>Cadastrados: {item.quantidade}</p>
               </Card.Body>
-              <Card.Footer className="text-end">
-                <Button href={item.link}>Ver Lista</Button>
+              <Card.Footer className="text-end" style={{ background: "transparent" }}>
+                <Button
+                  href={item.link}
+                  style={{
+                    backgroundColor: "#f77f00",
+                    border: "none",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Ver Lista
+                </Button>
               </Card.Footer>
             </Card>
           </Col>
         ))}
       </Row>
+      
     </Pagina>
   );
 }

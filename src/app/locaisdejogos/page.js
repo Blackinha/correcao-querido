@@ -93,6 +93,14 @@ export default function LocaisAirsoftPage() {
           )}
         </tbody>
       </Table>
+      <div className="my-5">
+        <img
+          src="https://st2.depositphotos.com/4249115/6316/i/450/depositphotos_63162269-stock-photo-sniper-stands-with-arms-and.jpg"
+          alt="Imagem de Airsoft"
+          className="d-block w-100"
+          style={{ maxHeight: "400px", objectFit: "cover" }}
+        />
+      </div>
     </Pagina>
   );
 }

@@ -23,7 +23,7 @@ export default function LocalAirsoftFormPage(props) {
   const localEditado = id ? locaisAirsoft.find((item) => item.id === id) : null;
   console.log(localEditado);
 
-  // função para salvar os dados do form
+  // Função para salvar os dados do form
   function salvar(dados) {
     // Se localEditado existe, mudar os dados e gravar no localStorage
     if (localEditado) {
@@ -73,7 +73,6 @@ export default function LocalAirsoftFormPage(props) {
   return (
     <Pagina titulo={"Cadastro de Local de Airsoft"}>
       {/* Formulário */}
-
       <Formik
         // Atributos do formik
         // Se for edição, coloca os dados de localEditado
@@ -130,7 +129,125 @@ export default function LocalAirsoftFormPage(props) {
                   </Form.Group>
                 </Row>
 
-                {/* Campos restantes... */}
+                <Row className="mb-2">
+                  <Form.Group as={Col}>
+                    <Form.Label>Tipo (CQB ou Campo Aberto):</Form.Label>
+                    <Form.Control
+                      name="tipo"
+                      type="text"
+                      value={values.tipo}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      isValid={touched.tipo && !errors.tipo}
+                      isInvalid={touched.tipo && errors.tipo}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.tipo}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+
+                  <Form.Group as={Col}>
+                    <Form.Label>Capacidade:</Form.Label>
+                    <Form.Control
+                      name="capacidade"
+                      type="number"
+                      value={values.capacidade}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      isValid={touched.capacidade && !errors.capacidade}
+                      isInvalid={touched.capacidade && errors.capacidade}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.capacidade}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Row>
+
+                <Row className="mb-2">
+                  <Form.Group as={Col}>
+                    <Form.Label>Responsável pelo Local:</Form.Label>
+                    <Form.Control
+                      name="responsavel"
+                      type="text"
+                      value={values.responsavel}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      isValid={touched.responsavel && !errors.responsavel}
+                      isInvalid={touched.responsavel && errors.responsavel}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.responsavel}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+
+                  <Form.Group as={Col}>
+                    <Form.Label>Cidade:</Form.Label>
+                    <Form.Control
+                      name="cidade"
+                      type="text"
+                      value={values.cidade}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      isValid={touched.cidade && !errors.cidade}
+                      isInvalid={touched.cidade && errors.cidade}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.cidade}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Row>
+
+                <Row className="mb-2">
+                  <Form.Group as={Col}>
+                    <Form.Label>Estado:</Form.Label>
+                    <Form.Control
+                      name="estado"
+                      type="text"
+                      value={values.estado}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      isValid={touched.estado && !errors.estado}
+                      isInvalid={touched.estado && errors.estado}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.estado}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+
+                  <Form.Group as={Col}>
+                    <Form.Label>Regras Específicas:</Form.Label>
+                    <Form.Control
+                      name="regras"
+                      as="textarea"
+                      value={values.regras}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      isValid={touched.regras && !errors.regras}
+                      isInvalid={touched.regras && errors.regras}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.regras}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Row>
+
+                <Row className="mb-2">
+                  <Form.Group as={Col}>
+                    <Form.Label>Comentários:</Form.Label>
+                    <Form.Control
+                      name="comentarios"
+                      as="textarea"
+                      value={values.comentarios}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      isValid={touched.comentarios && !errors.comentarios}
+                      isInvalid={touched.comentarios && errors.comentarios}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.comentarios}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Row>
 
                 {/* botões */}
                 <Form.Group className="text-end">

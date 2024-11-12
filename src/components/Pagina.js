@@ -19,7 +19,7 @@ export default function Pagina({ titulo, children }) {
         </Container>
       </Navbar>
 
-     
+
       {/* Conteudo da Página */}
       <Container className="mt-2">{children}</Container>
     </>

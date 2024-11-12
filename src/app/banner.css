@@ -50,7 +50,7 @@ body {
   }
   
   .carousel-custom .carousel-item img {
-    max-height: 300px; /* Limitar altura das imagens do carrossel */
+    max-height: 500px; /* Limitar altura das imagens do carrossel */
     object-fit: cover;
   }
   
@@ -128,7 +128,44 @@ body {
   /* Cor do conteúdo */
   .container {
     background-color: #4B5320; /* Verde militar para o conteúdo */
-    padding: 30px;
+    padding: 10px;
     border-radius: 8px; /* Bordas arredondadas para suavizar */
   }
-  
+  /* Efeitos nos cartões */
+.card-modern {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-modern:hover {
+  transform: scale(1.05); /* Aumenta levemente o tamanho do cartão */
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3); /* Sombra mais intensa ao passar o mouse */
+}
+
+/* Estilo dos títulos e textos nos cartões */
+.card-title {
+  color: #2F4F4F; /* Título em cinza escuro */
+  transition: color 0.3s ease;
+}
+
+.card-modern:hover .card-title {
+  color: #FFD700; /* Dourado no título ao passar o mouse */
+}
+
+.card-footer {
+  background-color: transparent; /* Fundo transparente para a rodapé do card */
+  transition: background-color 0.3s ease;
+}
+
+.card-footer:hover {
+  background-color: rgba(85, 107, 47, 0.7); /* Fundo verde com transparência ao passar o mouse */
+}
+
+/* Estilo do botão no card */
+.card-modern .btn {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.card-modern .btn:hover {
+  background-color: #FFD700; /* Fundo amarelo dourado */
+  color: #4B5320; /* Texto verde militar */
+}

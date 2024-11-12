@@ -71,6 +71,14 @@ export default function EventosPage() {
           ))}
         </tbody>
       </Table>
+      <div className="my-5">
+        <img
+          src="https://army-company.nl/wp-content/uploads/2014/05/Airsoft-webshop.jpg"
+          alt="Imagem de Airsoft"
+          className="d-block w-100"
+          style={{ maxHeight: "400px", objectFit: "cover" }}
+        />
+      </div>
     </Pagina>
   );
 }

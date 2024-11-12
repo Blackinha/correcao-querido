@@ -85,6 +85,14 @@ export default function equipamentosPage() {
           })}
         </tbody>
       </Table>
+      <div className="my-5">
+        <img
+          src="https://blog.lazereaventura.com.br/wp-content/uploads/2019/02/como_fazer_a_limpeza_e_manuten%C3%A7%C3%A3o_da_arma_de_airsoft_lazer_e_aventura_shop-810x540.jpg"
+          alt="Imagem de Airsoft"
+          className="d-block w-100"
+          style={{ maxHeight: "400px", objectFit: "cover" }}
+        />
+      </div>
     </Pagina>
   );
 }

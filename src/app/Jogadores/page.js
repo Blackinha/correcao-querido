@@ -65,6 +65,14 @@ export default function JogadoresPage() {
           ))}
         </tbody>
       </Table>
+      <div className="my-5">
+        <img
+          src="https://media.istockphoto.com/id/1308399725/pt/foto/four-fully-equipped-middle-aged-soldiers-in-camouflage-uniforms-form-a-line-ready-to-fire.jpg?s=612x612&w=0&k=20&c=Ds5GF6YVo8OmawaL2Eppff9Tlsm3R-0l8EBD3nY54sk="
+          alt="Imagem de Airsoft"
+          className="d-block w-100"
+          style={{ maxHeight: "400px", objectFit: "cover" }}
+        />
+      </div>
     </Pagina>
   );
 }
