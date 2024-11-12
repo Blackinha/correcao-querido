@@ -8,36 +8,35 @@ import { FaPen, FaPlusCircle, FaTrash } from "react-icons/fa";
 export default function equipamentosPage() {
   const [equipamentos, setequipamentos] = useState([]);
 
-  // Faz alguma coisa quando o usuário acessa a tela
   useEffect(() => {
-    // Busca a lista do localStorage, se não existir, inicia uma vazia
+
     const equipamentosLocalStorage =
       JSON.parse(localStorage.getItem("equipamentos")) || [];
-    // guarda a lista no estado equipamentos
+
     setequipamentos(equipamentosLocalStorage);
     console.log(equipamentosLocalStorage);
   }, []);
 
-  // Função para exclusão do item
+
   function excluir(equipamento) {
-    // Confirma com o usuário a exclusão
+
     if (window.confirm(`Deseja realmente excluir o equipamento ${equipamento.nome}?`)) {
-      // Obtém a lista atual de equipamentos do localStorage
+
       const listaEquipamentos = JSON.parse(localStorage.getItem("equipamentos")) || [];
-  
-      // Filtra a lista removendo o equipamento selecionado
+
+
       const novaLista = listaEquipamentos.filter((item) => item.id !== equipamento.id);
-  
-      // Atualiza o localStorage com a nova lista
+
+
       localStorage.setItem("equipamentos", JSON.stringify(novaLista));
-  
-      // Atualiza o estado com a nova lista para renderizar na tela
+
+
       setequipamentos(novaLista);
-      
+
       alert("Equipamento excluído com sucesso!");
     }
   }
-  
+
 
   return (
     <Pagina titulo={"Lista de equipamentos"}>
@@ -46,8 +45,6 @@ export default function equipamentosPage() {
           <FaPlusCircle /> Novo
         </Button>
       </div>
-
-      {/* Tabela com as equipamentos */}
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -69,7 +66,6 @@ export default function equipamentosPage() {
                 <td>{equipamentos.proprietário}</td>
                 <td>{equipamentos.condição}</td>
                 <td className="text-center">
-                  {/* Botões das ações */}
                   <Button
                     className="me-2"
                     href={`/equipamentos/form?id=${equipamentos.id}`}

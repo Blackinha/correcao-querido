@@ -5,7 +5,6 @@ import { Container, Nav, Navbar, Form, FormControl, Button } from "react-bootstr
 export default function Pagina({ titulo, children }) {
   return (
     <>
-      {/* Barra de Navegação */}
       <Navbar bg="dark" data-bs-theme="dark">
         <Container>
           <Navbar.Brand href="/">Home</Navbar.Brand>
@@ -17,7 +16,6 @@ export default function Pagina({ titulo, children }) {
             <Nav.Link href="/locaisdejogos">Locais de jogos</Nav.Link>
           </Nav>
 
-          {/* Barra de Pesquisa */}
           <Form className="d-flex">
             <FormControl
               type="search"
@@ -29,8 +27,6 @@ export default function Pagina({ titulo, children }) {
           </Form>
         </Container>
       </Navbar>
-
-      {/* Conteudo da Página */}
       <Container className="mt-2">{children}</Container>
     </>
   );

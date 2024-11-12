@@ -11,12 +11,10 @@ import * as Yup from "yup";
 export default function EventosFormPage(props) {
   const router = useRouter();
 
-  // Recupera o ID para edição, se disponível
   const id = props.searchParams.id;
   const eventos = JSON.parse(localStorage.getItem("eventos")) || [];
   const eventoEditado = eventos.find((item) => item.id === id);
 
-  // Função para salvar os dados do form
   function salvar(dados) {
     if (eventoEditado) {
       Object.assign(eventoEditado, dados);
@@ -31,7 +29,6 @@ export default function EventosFormPage(props) {
     router.push("/eventos");
   }
 
-  // Valores iniciais do formulário
   const initialValues = {
     nome: "",
     data: "",
@@ -43,7 +40,6 @@ export default function EventosFormPage(props) {
     tipoEvento: "",
   };
 
-  // Validação com Yup
   const validationSchema = Yup.object().shape({
     nome: Yup.string().required("Campo obrigatório"),
     data: Yup.date().required("Campo obrigatório"),
@@ -221,6 +217,10 @@ export default function EventosFormPage(props) {
           </Form>
         )}
       </Formik>
+
+
+      
     </Pagina>
+
   );
 }

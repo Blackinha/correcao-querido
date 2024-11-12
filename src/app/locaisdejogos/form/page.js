@@ -9,34 +9,32 @@ import { v4 } from "uuid";
 import * as Yup from "yup";
 
 export default function LocalAirsoftFormPage(props) {
-  // router -> hook para navegação de telas
+
   const router = useRouter();
 
-  // Buscar a lista de locais de airsoft no localStorage, se não existir, inicializa uma lista vazia
   const locaisAirsoft = JSON.parse(localStorage.getItem("locaisAirsoft")) || [];
 
-  // Recuperando id para edição da URL
-  const id = props.searchParams?.id; // Verifique se o id está presente
+
+  const id = props.searchParams?.id;
   console.log(id);
 
-  // Buscar na lista o local de airsoft com o ID recebido no parametro
+
   const localEditado = id ? locaisAirsoft.find((item) => item.id === id) : null;
   console.log(localEditado);
 
-  // Função para salvar os dados do form
+
   function salvar(dados) {
-    // Se localEditado existe, mudar os dados e gravar no localStorage
+
     if (localEditado) {
       Object.assign(localEditado, dados);
-      // Substitui a lista antiga pela nova no localStorage
+
       localStorage.setItem("locaisAirsoft", JSON.stringify(locaisAirsoft));
     } else {
-      // se localEditado não existe, é criação de um novo
-      // gerar um ID (Identificador único)
+
       dados.id = v4();
-      // Adiciona o novo local na lista de locais de airsoft
+
       locaisAirsoft.push(dados);
-      // Substitui a lista antiga pela nova no localStorage
+
       localStorage.setItem("locaisAirsoft", JSON.stringify(locaisAirsoft));
     }
 
@@ -44,7 +42,6 @@ export default function LocalAirsoftFormPage(props) {
     router.push("/locaisAirsoft");
   }
 
-  // Campos do form e valores iniciais (default)
   const initialValues = {
     nome: "",
     endereco: "",
@@ -57,7 +54,6 @@ export default function LocalAirsoftFormPage(props) {
     comentarios: "",
   };
 
-  // Esquema de validação com Yup
   const validationSchema = Yup.object().shape({
     nome: Yup.string().required("Campo obrigatório"),
     endereco: Yup.string().required("Campo obrigatório"),
@@ -72,18 +68,15 @@ export default function LocalAirsoftFormPage(props) {
 
   return (
     <Pagina titulo={"Cadastro de Local de Airsoft"}>
-      {/* Formulário */}
+
       <Formik
-        // Atributos do formik
-        // Se for edição, coloca os dados de localEditado
-        // Se for novo, coloca o initialValues com os valores vazios
+
         initialValues={localEditado || initialValues}
         validationSchema={validationSchema}
         onSubmit={salvar}
       >
-        {/* construção do template do formulário */}
         {
-          // os valores e funções do formik
+
           ({
             values,
             errors,
@@ -94,7 +87,6 @@ export default function LocalAirsoftFormPage(props) {
           }) => {
             return (
               <Form onSubmit={handleSubmit}>
-                {/* Campos do form */}
                 <Row className="mb-2">
                   <Form.Group as={Col}>
                     <Form.Label>Nome do Local:</Form.Label>
@@ -248,8 +240,7 @@ export default function LocalAirsoftFormPage(props) {
                     </Form.Control.Feedback>
                   </Form.Group>
                 </Row>
-
-                {/* botões */}
+                
                 <Form.Group className="text-end">
                   <Button className="me-2" href="/locaisAirsoft">
                     <FaArrowLeft /> Voltar

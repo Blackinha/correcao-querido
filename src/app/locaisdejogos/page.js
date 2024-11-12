@@ -9,12 +9,12 @@ import { FaPen, FaPlusCircle, FaTrash } from "react-icons/fa";
 export default function LocaisAirsoftPage() {
   const [locaisAirsoft, setLocaisAirsoft] = useState([]);
 
-  // Faz alguma coisa quando o usuário acessa a tela
+
   useEffect(() => {
-    // Tenta acessar o localStorage e obtém a lista de locais
+
     const locaisAirsoftLocalStorage = JSON.parse(localStorage.getItem("locaisAirsoft"));
 
-    // Verifica se os dados existem e são válidos, se não, inicia com um array vazio
+
     if (locaisAirsoftLocalStorage && Array.isArray(locaisAirsoftLocalStorage)) {
       setLocaisAirsoft(locaisAirsoftLocalStorage);
     } else {
@@ -24,15 +24,15 @@ export default function LocaisAirsoftPage() {
     console.log(locaisAirsoftLocalStorage);
   }, []);
 
-  // Função para exclusão do item
+
   function excluir(local) {
-    // Confirma com o usuário a exclusão
+
     if (window.confirm(`Deseja realmente excluir o local ${local.nome}?`)) {
-      // filtra a lista antiga removendo o local recebido
+
       const novaLista = locaisAirsoft.filter((item) => item.id !== local.id);
-      // grava no localStorage a nova lista
+
       localStorage.setItem("locaisAirsoft", JSON.stringify(novaLista));
-      // grava a nova lista no estado para renderizar na tela
+
       setLocaisAirsoft(novaLista);
       alert("Local de Airsoft excluído com sucesso!");
     }
@@ -45,8 +45,6 @@ export default function LocaisAirsoftPage() {
           <FaPlusCircle /> Novo
         </Button>
       </div>
-
-      {/* Tabela com os Locais de Airsoft */}
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -71,7 +69,7 @@ export default function LocaisAirsoftPage() {
                   <td>{local.cidade}</td>
                   <td>{local.estado}</td>
                   <td className="text-center">
-                    {/* Botões das ações */}
+
                     <Button
                       className="me-2"
                       href={`/locaisdejogos/form?id=${local.id}`}

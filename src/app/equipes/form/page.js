@@ -1,4 +1,4 @@
-"use client"; // Add this line to mark the component as client-side
+"use client"; 
 
 import '../../banner.css';
 import Pagina from "@/components/Pagina";
@@ -147,7 +147,7 @@ export default function EquipesFormPage(props) {
                   mask="99/99/9999"
                   value={values.dataFundacao}
                   onChange={handleChange}
-                  onBlur={handleBlur} // Passando onBlur diretamente para o InputMask
+                  onBlur={handleBlur} 
                   name="dataFundacao"
                   type="text"
                   isValid={touched.dataFundacao && !errors.dataFundacao}

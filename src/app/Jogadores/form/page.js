@@ -4,7 +4,7 @@ import Pagina from "@/components/Pagina";
 import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useRouter } from "next/navigation";
-import InputMask from "react-input-mask"; // Importando o pacote de máscara
+import InputMask from "react-input-mask"; 
 
 export default function CadastroJogadores() {
   const [jogador, setJogador] = useState({

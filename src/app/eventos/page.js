@@ -7,15 +7,11 @@ import { FaPen, FaPlusCircle, FaTrash } from "react-icons/fa";
 
 export default function EventosPage() {
   const [eventos, setEventos] = useState([]);
-
-  // Carrega os eventos quando a tela é acessada
   useEffect(() => {
     const eventosLocalStorage = JSON.parse(localStorage.getItem("eventos")) || [];
     setEventos(eventosLocalStorage);
     console.log(eventosLocalStorage);
   }, []);
-
-  // Função para exclusão de um evento
   function excluir(evento) {
     if (window.confirm(`Deseja realmente excluir o evento ${evento.nome}?`)) {
       const novaLista = eventos.filter((item) => item.id !== evento.id);
@@ -32,8 +28,6 @@ export default function EventosPage() {
           <FaPlusCircle /> Novo
         </Button>
       </div>
-
-      {/* Tabela com os eventos */}
       <Table striped bordered hover>
         <thead>
           <tr>
