@@ -72,14 +72,14 @@ export default function HomePage() {
         <Carousel.Item>
           <img
             className="d-block w-100 carousel-img"
-            src="https://airsofts.com.br/wp-content/uploads/2021/08/BANNER_DESKTOP_1920x527-AIRSOFTS_OUT-2.jpg"
+            src="https://gunfire.com/data/include/img/news/1671204498.webp"
             alt="Imagem de Airsoft 2"
           />
         </Carousel.Item>
         <Carousel.Item>
           <img
             className="d-block w-100 carousel-img"
-            src="https://tubaraocenter.fbitsstatic.net/media/banner-airsoft.png?v=202410160851"
+            src="https://www.lojadacarabina.com.br/media/wysiwyg/Bad_day_3-_32-de-284_.png"
             alt="Imagem de Airsoft 3"
           />
         </Carousel.Item>

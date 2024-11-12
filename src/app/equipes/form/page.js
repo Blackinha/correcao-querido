@@ -1,4 +1,5 @@
-"use client";
+"use client"; // Add this line to mark the component as client-side
+
 import '../../banner.css';
 import Pagina from "@/components/Pagina";
 import { Formik } from "formik";
@@ -7,11 +8,11 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import { FaArrowLeft, FaCheck } from "react-icons/fa";
 import { v4 } from "uuid";
 import * as Yup from "yup";
+import InputMask from 'react-input-mask';
 
 export default function EquipesFormPage(props) {
   const router = useRouter();
 
-  // Supondo que você tenha os jogadores no localStorage, se não, vamos gerar 20 fictícios
   const jogadores = JSON.parse(localStorage.getItem("jogadores")) || Array.from({ length: 20 }, (_, i) => ({
     id: v4(),
     nome: `Jogador ${i + 1}`,
@@ -38,7 +39,7 @@ export default function EquipesFormPage(props) {
   const initialValues = {
     nomeEquipe: "",
     capitao: "",
-    membros: "",
+    membros: [],
     dataFundacao: "",
     cidade: "",
     estado: "",
@@ -50,7 +51,7 @@ export default function EquipesFormPage(props) {
   const validationSchema = Yup.object().shape({
     nomeEquipe: Yup.string().required("Campo obrigatório"),
     capitao: Yup.string().required("Campo obrigatório"),
-    membros: Yup.string().required("Campo obrigatório"),
+    membros: Yup.array().min(1, "Deve haver pelo menos um membro").required("Campo obrigatório"),
     dataFundacao: Yup.date().required("Campo obrigatório"),
     cidade: Yup.string().required("Campo obrigatório"),
     estado: Yup.string().required("Campo obrigatório"),
@@ -117,29 +118,38 @@ export default function EquipesFormPage(props) {
 
             <Row className="mb-2">
               <Form.Group as={Col}>
-                <Form.Label>Membros (IDs separados por vírgula):</Form.Label>
-                <Form.Control
+                <Form.Label>Membros:</Form.Label>
+                <Form.Select
                   name="membros"
-                  type="text"
                   value={values.membros}
                   onChange={handleChange}
                   onBlur={handleBlur}
+                  multiple
                   isValid={touched.membros && !errors.membros}
                   isInvalid={touched.membros && errors.membros}
-                />
+                >
+                  {jogadores.map((jogador) => (
+                    <option key={jogador.id} value={jogador.id}>
+                      {jogador.nome}
+                    </option>
+                  ))}
+                </Form.Select>
                 <Form.Control.Feedback type="invalid">
                   {errors.membros}
                 </Form.Control.Feedback>
               </Form.Group>
+            </Row>
 
+            <Row className="mb-2">
               <Form.Group as={Col}>
                 <Form.Label>Data de Fundação:</Form.Label>
-                <Form.Control
-                  name="dataFundacao"
-                  type="date"
+                <InputMask
+                  mask="99/99/9999"
                   value={values.dataFundacao}
                   onChange={handleChange}
-                  onBlur={handleBlur}
+                  onBlur={handleBlur} // Passando onBlur diretamente para o InputMask
+                  name="dataFundacao"
+                  type="text"
                   isValid={touched.dataFundacao && !errors.dataFundacao}
                   isInvalid={touched.dataFundacao && errors.dataFundacao}
                 />
@@ -200,32 +210,46 @@ export default function EquipesFormPage(props) {
                   {errors.numeroVitorias}
                 </Form.Control.Feedback>
               </Form.Group>
+            </Row>
 
+            <Row className="mb-2">
               <Form.Group as={Col}>
                 <Form.Label>Descrição:</Form.Label>
                 <Form.Control
-                  as="textarea"
                   name="descricao"
+                  as="textarea"
                   value={values.descricao}
                   onChange={handleChange}
                   onBlur={handleBlur}
+                  isValid={touched.descricao && !errors.descricao}
+                  isInvalid={touched.descricao && errors.descricao}
                 />
+                <Form.Control.Feedback type="invalid">
+                  {errors.descricao}
+                </Form.Control.Feedback>
               </Form.Group>
             </Row>
 
-            <Form.Group className="mb-2">
-              <Form.Label>Eventos:</Form.Label>
-              <Form.Control
-                type="text"
-                name="eventos"
-                value={values.eventos}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-            </Form.Group>
+            <Row className="mb-2">
+              <Form.Group as={Col}>
+                <Form.Label>Eventos:</Form.Label>
+                <Form.Control
+                  name="eventos"
+                  as="textarea"
+                  value={values.eventos}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  isValid={touched.eventos && !errors.eventos}
+                  isInvalid={touched.eventos && errors.eventos}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.eventos}
+                </Form.Control.Feedback>
+              </Form.Group>
+            </Row>
 
             <Form.Group className="text-end">
-              <Button className="me-2" href="/equipamentos">
+              <Button className="me-2" href="/equipes">
                 <FaArrowLeft /> Voltar
               </Button>
               <Button type="submit" variant="success">

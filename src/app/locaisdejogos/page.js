@@ -1,3 +1,4 @@
+
 "use client";
 import '../banner.css';
 import Pagina from "@/components/Pagina";
