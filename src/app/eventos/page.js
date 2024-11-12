@@ -73,7 +73,7 @@ export default function EventosPage() {
       </Table>
       <div className="my-5">
         <img
-          src="https://army-company.nl/wp-content/uploads/2014/05/Airsoft-webshop.jpg"
+          src="https://airsofts.com.br/wp-content/uploads/2021/02/5-taticas-militares-para-sua-equipe-de-Airsoft-1.jpg"
           alt="Imagem de Airsoft"
           className="d-block w-100"
           style={{ maxHeight: "400px", objectFit: "cover" }}

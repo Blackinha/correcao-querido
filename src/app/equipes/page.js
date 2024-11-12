@@ -70,7 +70,7 @@ export default function EquipesPage() {
       </Table>
       <div className="my-5">
         <img
-          src="https://army-company.nl/wp-content/uploads/2014/05/Tactical-Gear.jpg"
+          src="https://www.adrena.me/blog/wp-content/uploads/2020/02/Jogar-airsoft-Veja-1200x675.jpeg"
           alt="Imagem de Airsoft"
           className="d-block w-100"
           style={{ maxHeight: "400px", objectFit: "cover" }}
