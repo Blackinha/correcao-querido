@@ -21,9 +21,6 @@ export default function HomePage() {
     }
   }, []);
 
-  //apagar depois
-  const data = localStorage.getItem(`locaisdejogos`)
-//console.log(data)
   const lista = [
     {
       nome: "Equipamentos",

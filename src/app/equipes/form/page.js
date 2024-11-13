@@ -1,26 +1,33 @@
-"use client"; 
-
-import '../../banner.css';
+"use client";
+import "../../banner.css";
 import Pagina from "@/components/Pagina";
-import { Formik } from "formik";
 import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { FaArrowLeft, FaCheck } from "react-icons/fa";
 import { v4 } from "uuid";
+import { Formik } from "formik";
 import * as Yup from "yup";
-import InputMask from 'react-input-mask';
+import InputMask from "react-input-mask";
+import apiLocalidades from "@/services/apiLocalidades";
 
-export default function EquipesFormPage(props) {
+export default function EquipesFormPage({ searchParams }) {
   const router = useRouter();
 
-  const jogadores = JSON.parse(localStorage.getItem("jogadores")) || Array.from({ length: 20 }, (_, i) => ({
-    id: v4(),
-    nome: `Jogador ${i + 1}`,
-  }));
-  const equipes = JSON.parse(localStorage.getItem("equipes")) || [];
+  const [paises, setPaises] = useState([]);
 
-  const id = props.searchParams.id;
-  const equipeEditada = equipes.find((item) => item.id == id);
+  const [JogadoresFiltrados, setJogadoresFiltrados] = useState([]);
+
+  useEffect(() => {
+    apiLocalidades.get("/paises").then((response) => setPaises(response.data));
+    apiLocalidades.get("estados?orderBy=nome");
+    // .then((response) => setEstados(response.data));
+  }, []);
+
+  const Jogadores = JSON.parse(localStorage.getItem("Jogadores")) || [];
+  const equipes = JSON.parse(localStorage.getItem("equipes")) || [];
+  const id = searchParams?.id;
+  const equipeEditada = equipes.find((item) => item.id === id);
 
   function salvar(dados) {
     if (equipeEditada) {
@@ -31,37 +38,37 @@ export default function EquipesFormPage(props) {
       equipes.push(dados);
       localStorage.setItem("equipes", JSON.stringify(equipes));
     }
-
-    alert("Equipe salva com sucesso!");
+    alert("Equipe inscrita. Boa sorte!");
     router.push("/equipes");
   }
-
   const initialValues = {
     nomeEquipe: "",
     capitao: "",
-    membros: [],
-    dataFundacao: "",
-    cidade: "",
-    estado: "",
+    membros: "",
+    tagEquipe: "",
+    pais: "Brasil",
     numeroVitorias: "",
+    organizacao: "",
     descricao: "",
     eventos: "",
   };
-
   const validationSchema = Yup.object().shape({
-    nomeEquipe: Yup.string().required("Campo obrigatório"),
-    capitao: Yup.string().required("Campo obrigatório"),
-    membros: Yup.array().min(1, "Deve haver pelo menos um membro").required("Campo obrigatório"),
-    dataFundacao: Yup.date().required("Campo obrigatório"),
-    cidade: Yup.string().required("Campo obrigatório"),
-    estado: Yup.string().required("Campo obrigatório"),
-    numeroVitorias: Yup.number().min(0, "Número inválido").required("Campo obrigatório"),
-    descricao: Yup.string(),
-    eventos: Yup.string(),
+    nomeEquipe: Yup.string().required("Campo obrigatorio"),
+    capitao: Yup.string().required("Campo obrigatorio"),
+    membros: Yup.string().required("Campo obrigatorio"),
+    tagEquipe: Yup.string().required("Campo obrigatorio"),
+    pais: Yup.string().required("Campo obrigatorio"),
+    numeroVitorias: Yup.number().required("Campo obrigatorio"),
+    organizacao: Yup.string().required("Campo obrigatorio"),
+    eventos: Yup.string().required("Campo obrigatorio"),
   });
 
+  useEffect(() => {
+    if (Jogadores.length > 0) setJogadoresFiltrados(Jogadores);
+  }, [Jogadores]);
+
   return (
-    <Pagina titulo="Cadastro de Equipes">
+    <Pagina titulo="Cadastro de numeroVitorias">
       <Formik
         initialValues={equipeEditada || initialValues}
         validationSchema={validationSchema}
@@ -74,6 +81,7 @@ export default function EquipesFormPage(props) {
           handleChange,
           handleBlur,
           handleSubmit,
+          setFieldValue,
         }) => (
           <Form onSubmit={handleSubmit}>
             <Row className="mb-2">
@@ -92,9 +100,11 @@ export default function EquipesFormPage(props) {
                   {errors.nomeEquipe}
                 </Form.Control.Feedback>
               </Form.Group>
+            </Row>
 
+            <Row className="mb-2">
               <Form.Group as={Col}>
-                <Form.Label>Capitão:</Form.Label>
+                <Form.Label>Capitão da Equipe:</Form.Label>
                 <Form.Select
                   name="capitao"
                   value={values.capitao}
@@ -103,9 +113,9 @@ export default function EquipesFormPage(props) {
                   isValid={touched.capitao && !errors.capitao}
                   isInvalid={touched.capitao && errors.capitao}
                 >
-                  <option value="">Selecione o Capitão</option>
-                  {jogadores.map((jogador) => (
-                    <option key={jogador.id} value={jogador.id}>
+                  <option value="">Selecione:</option>
+                  {JogadoresFiltrados.map((jogador) => (
+                    <option key={jogador.nome} value={jogador.nome}>
                       {jogador.nome}
                     </option>
                   ))}
@@ -124,12 +134,12 @@ export default function EquipesFormPage(props) {
                   value={values.membros}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  multiple
                   isValid={touched.membros && !errors.membros}
                   isInvalid={touched.membros && errors.membros}
                 >
-                  {jogadores.map((jogador) => (
-                    <option key={jogador.id} value={jogador.id}>
+                  <option value="">Selecione:</option>
+                  {JogadoresFiltrados.map((jogador) => (
+                    <option key={jogador.nome} value={jogador.nome}>
                       {jogador.nome}
                     </option>
                   ))}
@@ -142,65 +152,55 @@ export default function EquipesFormPage(props) {
 
             <Row className="mb-2">
               <Form.Group as={Col}>
-                <Form.Label>Data de Fundação:</Form.Label>
+                <Form.Label>Tag da Equipe:</Form.Label>
                 <InputMask
-                  mask="99/99/9999"
-                  value={values.dataFundacao}
-                  onChange={handleChange}
-                  onBlur={handleBlur} 
-                  name="dataFundacao"
-                  type="text"
-                  isValid={touched.dataFundacao && !errors.dataFundacao}
-                  isInvalid={touched.dataFundacao && errors.dataFundacao}
-                />
-                <Form.Control.Feedback type="invalid">
-                  {errors.dataFundacao}
-                </Form.Control.Feedback>
-              </Form.Group>
-            </Row>
-
-            <Row className="mb-2">
-              <Form.Group as={Col}>
-                <Form.Label>Cidade:</Form.Label>
-                <Form.Control
-                  name="cidade"
-                  type="text"
-                  value={values.cidade}
+                  mask="aaaa#99"
+                  value={values.tagEquipe}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  isValid={touched.cidade && !errors.cidade}
-                  isInvalid={touched.cidade && errors.cidade}
-                />
+                >
+                  {(inputProps) => (
+                    <Form.Control
+                      {...inputProps}
+                      name="tagEquipe"
+                      isValid={touched.tagEquipe && !errors.tagEquipe}
+                      isInvalid={touched.tagEquipe && errors.tagEquipe}
+                    />
+                  )}
+                </InputMask>
                 <Form.Control.Feedback type="invalid">
-                  {errors.cidade}
+                  {errors.tagEquipe}
                 </Form.Control.Feedback>
               </Form.Group>
 
               <Form.Group as={Col}>
-                <Form.Label>Estado:</Form.Label>
-                <Form.Control
-                  name="estado"
-                  type="text"
-                  value={values.estado}
+                <Form.Label>País:</Form.Label>
+                <Form.Select
+                  name="pais"
+                  value={values.pais}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  isValid={touched.estado && !errors.estado}
-                  isInvalid={touched.estado && errors.estado}
-                />
+                  isValid={touched.pais && !errors.pais}
+                  isInvalid={touched.pais && errors.pais}
+                >
+                  <option value="">Selecione</option>
+                  {paises.map((pais) => (
+                    <option key={pais.nome} value={pais.nome}>
+                      {pais.nome}
+                    </option>
+                  ))}
+                </Form.Select>
                 <Form.Control.Feedback type="invalid">
-                  {errors.estado}
+                  {errors.pais}
                 </Form.Control.Feedback>
               </Form.Group>
-            </Row>
 
-            <Row className="mb-2">
               <Form.Group as={Col}>
                 <Form.Label>Número de Vitórias:</Form.Label>
                 <Form.Control
                   name="numeroVitorias"
-                  type="number"
-                  min={0}
                   value={values.numeroVitorias}
+                  type="number"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   isValid={touched.numeroVitorias && !errors.numeroVitorias}
@@ -214,10 +214,26 @@ export default function EquipesFormPage(props) {
 
             <Row className="mb-2">
               <Form.Group as={Col}>
-                <Form.Label>Descrição:</Form.Label>
+                <Form.Label>Organização Representante:</Form.Label>
                 <Form.Control
-                  name="descricao"
+                  name="organizacao"
+                  value={values.organizacao}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  isValid={touched.organizacao && !errors.organizacao}
+                  isInvalid={touched.organizacao && errors.organizacao}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.organizacao}
+                </Form.Control.Feedback>
+              </Form.Group>
+
+              <Form.Group as={Col}>
+                <Form.Label>Descrição da Equipe:</Form.Label>
+                <Form.Control
                   as="textarea"
+                  name="descricao"
+                  rows={3}
                   value={values.descricao}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -232,10 +248,10 @@ export default function EquipesFormPage(props) {
 
             <Row className="mb-2">
               <Form.Group as={Col}>
-                <Form.Label>Eventos:</Form.Label>
+                <Form.Label>Eventos Participados:</Form.Label>
                 <Form.Control
+                  type="text"
                   name="eventos"
-                  as="textarea"
                   value={values.eventos}
                   onChange={handleChange}
                   onBlur={handleBlur}

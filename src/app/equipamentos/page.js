@@ -42,6 +42,7 @@ export default function EquipamentosPage() {
             <th>Fabricante</th>
             <th>Proprietário</th>
             <th>Condição</th>
+            <th>Status:</th>
             <th>Ação</th>
           </tr>
         </thead>
@@ -54,6 +55,7 @@ export default function EquipamentosPage() {
                 <td>{equipamento.Fabricante}</td>
                 <td>{equipamento.Proprietario}</td>
                 <td>{equipamento.Condicao}</td>
+                <td>{equipamento.Status}</td>
                 <td className="text-center">
                   <Button
                     className="me-2" href={`/equipamentos/form?id=${equipamento.id}`}>

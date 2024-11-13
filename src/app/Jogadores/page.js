@@ -1,5 +1,5 @@
 "use client";
-import '../banner.css';
+import "../banner.css";
 import Pagina from "@/components/Pagina";
 import { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
@@ -9,8 +9,10 @@ export default function JogadoresPage() {
   const [Jogadores, setJogadores] = useState([]);
 
   useEffect(() => {
-    const JogadoresLocalStorage = JSON.parse(localStorage.getItem("Jogadores")) || [];
-    setJogadores(JogadoresLocalStorage);
+    const jogadoresLocalStorage =
+      JSON.parse(localStorage.getItem("Jogadores")) || [];
+    setJogadores(jogadoresLocalStorage);
+    console.log(jogadoresLocalStorage);
   }, []);
 
   const excluir = (jogador) => {
@@ -35,11 +37,11 @@ export default function JogadoresPage() {
           <tr>
             <th>Nome</th>
             <th>Apelido</th>
-            <th>Equipe</th>
+            <th>CPF</th>
             <th>Email</th>
             <th>Telefone</th>
             <th>Experiência (anos)</th>
-            <th>Tipo de Arma Preferida</th>
+            <th>Equipamento:</th>
             <th>Ações</th>
           </tr>
         </thead>
@@ -48,13 +50,16 @@ export default function JogadoresPage() {
             <tr key={jogador.id}>
               <td>{jogador.nome}</td>
               <td>{jogador.apelido}</td>
-              <td>{jogador.equipe}</td>
+              <td>{jogador.cpf}</td>
               <td>{jogador.email}</td>
               <td>{jogador.telefone}</td>
               <td>{jogador.experiencia}</td>
-              <td>{jogador.tipoArmaPreferida}</td>
+              <td>{jogador.equipamento}</td>
               <td className="text-center">
-                <Button className="me-2" href={`/Jogadores/form?id=${jogador.id}`}>
+                <Button
+                  className="me-2"
+                  href={`/Jogadores/form?id=${jogador.id}`}
+                >
                   <FaPen />
                 </Button>
                 <Button variant="danger" onClick={() => excluir(jogador)}>

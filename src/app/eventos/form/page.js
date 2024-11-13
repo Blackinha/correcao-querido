@@ -1,5 +1,5 @@
 "use client";
-import '../../banner.css';
+import "../../banner.css";
 import Pagina from "@/components/Pagina";
 import { Formik } from "formik";
 import { useRouter } from "next/navigation";
@@ -10,6 +10,12 @@ import * as Yup from "yup";
 
 export default function EventosFormPage(props) {
   const router = useRouter();
+
+  const [EquipesFiltradas, setEquipesFiltradas] = useState([]);
+  const [LocaisdeJogos, setLocaisdeJogos] = useState([]);
+
+  const localDoJogo = JSON.parse(localStorage.getItem("locaisdejogos")) || [];
+  const equipes = JSON.parse(localStorage.getItem("equipes")) || [];
 
   const id = props.searchParams.id;
   const eventos = JSON.parse(localStorage.getItem("eventos")) || [];
@@ -36,7 +42,7 @@ export default function EventosFormPage(props) {
     organizador: "",
     equipesParticipantes: "",
     regras: "",
-    observacoes: "",
+    horario: "",
     tipoEvento: "",
   };
 
@@ -47,9 +53,16 @@ export default function EventosFormPage(props) {
     organizador: Yup.string().required("Campo obrigatório"),
     equipesParticipantes: Yup.string().required("Campo obrigatório"),
     regras: Yup.string().required("Campo obrigatório"),
-    observacoes: Yup.string(),
+    horario: Yup.string(),
     tipoEvento: Yup.string().required("Campo obrigatório"),
   });
+
+  useEffect(() => {
+    if (equipes.length > 0) setEquipesFiltradas(equipes);
+  }, [equipes]);
+  useEffect(() => {
+    if (localDoJogo.length > 0) setLocaisdeJogos(localDoJogo);
+  }, [localDoJogo]);
 
   return (
     <Pagina titulo="Cadastro de Eventos">
@@ -104,15 +117,21 @@ export default function EventosFormPage(props) {
             <Row className="mb-2">
               <Form.Group as={Col}>
                 <Form.Label>Local:</Form.Label>
-                <Form.Control
+                <Form.Select
                   name="local"
-                  type="text"
                   value={values.local}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   isValid={touched.local && !errors.local}
                   isInvalid={touched.local && errors.local}
-                />
+                >
+                  <option value="">Selecione:</option>
+                  {LocaisdeJogos.map((local) => (
+                    <option key={local.nome} value={local.nome}>
+                      {local.nome}
+                    </option>
+                  ))}
+                </Form.Select>
                 <Form.Control.Feedback type="invalid">
                   {errors.local}
                 </Form.Control.Feedback>
@@ -138,15 +157,25 @@ export default function EventosFormPage(props) {
             <Row className="mb-2">
               <Form.Group as={Col}>
                 <Form.Label>Equipes Participantes:</Form.Label>
-                <Form.Control
+                <Form.Select
                   name="equipesParticipantes"
-                  type="text"
                   value={values.equipesParticipantes}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  isValid={touched.equipesParticipantes && !errors.equipesParticipantes}
-                  isInvalid={touched.equipesParticipantes && errors.equipesParticipantes}
-                />
+                  isValid={
+                    touched.equipesParticipantes && !errors.equipesParticipantes
+                  }
+                  isInvalid={
+                    touched.equipesParticipantes && errors.equipesParticipantes
+                  }
+                >
+                  <option value="">Selecione:</option>
+                  {EquipesFiltradas.map((equipe) => (
+                    <option key={equipe.nome} value={equipe.nome}>
+                      {equipe.nome}
+                    </option>
+                  ))}
+                </Form.Select>
                 <Form.Control.Feedback type="invalid">
                   {errors.equipesParticipantes}
                 </Form.Control.Feedback>
@@ -172,17 +201,23 @@ export default function EventosFormPage(props) {
             <Row className="mb-2">
               <Form.Group as={Col}>
                 <Form.Label>Observações:</Form.Label>
-                <Form.Control
-                  name="observacoes"
-                  type="text"
-                  value={values.observacoes}
+                <InputMask
+                  mask="99:99 às 99:99"
+                  value={values.horario}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  isValid={touched.observacoes && !errors.observacoes}
-                  isInvalid={touched.observacoes && errors.observacoes}
-                />
+                >
+                  {(inputProps) => (
+                    <Form.Control
+                      {...inputProps}
+                      name="horario"
+                      isValid={touched.horario && !errors.horario}
+                      isInvalid={touched.horario && errors.horario}
+                    />
+                  )}
+                </InputMask>
                 <Form.Control.Feedback type="invalid">
-                  {errors.observacoes}
+                  {errors.horario}
                 </Form.Control.Feedback>
               </Form.Group>
 
@@ -217,10 +252,6 @@ export default function EventosFormPage(props) {
           </Form>
         )}
       </Formik>
-
-
-      
     </Pagina>
-
   );
 }

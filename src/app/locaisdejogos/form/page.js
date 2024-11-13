@@ -7,6 +7,7 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import { FaArrowLeft, FaCheck } from "react-icons/fa";
 import { v4 } from "uuid";
 import * as Yup from "yup";
+import InputMask from "react-input-mask"
 
 export default function LocalAirsoftFormPage(props) {
   const router = useRouter();
@@ -38,7 +39,7 @@ export default function LocalAirsoftFormPage(props) {
     cidade: "",
     estado: "",
     regras: "",
-    comentarios: "",
+    horarios: "",
   };
 
   const validationSchema = Yup.object().shape({
@@ -52,7 +53,7 @@ export default function LocalAirsoftFormPage(props) {
     cidade: Yup.string().required("Campo obrigatório"),
     estado: Yup.string().required("Campo obrigatório"),
     regras: Yup.string().required("Campo obrigatório"),
-    comentarios: Yup.string(),
+    horarios: Yup.string().required("Campo Obrigatório"),
   });
 
   return (
@@ -210,18 +211,24 @@ export default function LocalAirsoftFormPage(props) {
 
               <Row className="mb-2">
                 <Form.Group as={Col}>
-                  <Form.Label>Comentários:</Form.Label>
-                  <Form.Control
-                    name="comentarios"
-                    as="textarea"
-                    value={values.comentarios}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    isValid={touched.comentarios && !errors.comentarios}
-                    isInvalid={touched.comentarios && errors.comentarios}
-                  />
+                  <Form.Label>Horário de Funcionamento:</Form.Label>
+                  <InputMask
+                  mask="99:99 às 99:99"
+                  value={values.horarios}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                >
+                  {(inputProps) => (
+                    <Form.Control
+                      {...inputProps}
+                      name="horarios"
+                      isValid={touched.horarios && !errors.horarios}
+                      isInvalid={touched.horarios && errors.horarios}
+                    />
+                  )}
+                </InputMask>
                   <Form.Control.Feedback type="invalid">
-                    {errors.comentarios}
+                    {errors.horarios}
                   </Form.Control.Feedback>
                 </Form.Group>
               </Row>

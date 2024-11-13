@@ -33,14 +33,13 @@ export default function EquipesPage() {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>Nome</th>
-            <th>Capitão</th>
-            <th>Membros</th>
-            <th>Data de Fundação</th>
-            <th>Cidade</th>
-            <th>Estado</th>
+            <th>Nome:</th>
+            <th>Capitão:</th>
+            <th>Membros:</th>
+            <th>Tag da Equipe:</th>
+            <th>País:</th>
+            <th>Organização</th>
             <th>Vitórias</th>
-            <th>Descrição</th>
             <th>Ações</th>
           </tr>
         </thead>
@@ -50,11 +49,10 @@ export default function EquipesPage() {
               <td>{equipe.nomeEquipe}</td>
               <td>{equipe.capitao}</td>
               <td>{equipe.membros}</td>
-              <td>{equipe.dataFundacao}</td>
-              <td>{equipe.cidade}</td>
-              <td>{equipe.estado}</td>
+              <td>{equipe.tagEquipe}</td>
+              <td>{equipe.pais}</td>
+              <td>{equipe.organizacao}</td>
               <td>{equipe.numeroVitorias}</td>
-              <td>{equipe.descricao}</td>
               <td className="text-center">
                 <Button className="me-2" href={`/equipes/form?id=${equipe.id}`}>
                   <FaPen />

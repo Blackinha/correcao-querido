@@ -46,7 +46,7 @@ export default function LocaisAirsoftPage() {
             <th>Tipo</th>
             <th>Capacidade</th>
             <th>Cidade</th>
-            <th>Estado</th>
+            <th>Horário de Funcionamento</th>
             <th>Ações</th>
           </tr>
         </thead>
@@ -60,7 +60,7 @@ export default function LocaisAirsoftPage() {
                   <td>{local.tipo}</td>
                   <td>{local.capacidade}</td>
                   <td>{local.cidade}</td>
-                  <td>{local.estado}</td>
+                  <td>{local.horarios}</td>
                   <td className="text-center">
                     
                     <Button

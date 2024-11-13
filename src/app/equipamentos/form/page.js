@@ -8,6 +8,8 @@ import { FaArrowLeft, FaCheck } from "react-icons/fa";
 import { v4 } from "uuid";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import InputMask from "react-input-mask"
+
 export default function EquipamentosFormPage({ searchParams }) {
   const router = useRouter();
   const [modelosDeArma] = useState([
@@ -43,7 +45,7 @@ export default function EquipamentosFormPage({ searchParams }) {
     DataAquisicao: "",
     UltimaManutencao: "",
     Descricao: "",
-    LocaisDeJogo: "",
+    Status: "",
   };
   const validationSchema = Yup.object().shape({
     nome: Yup.string().required("Campo obrigatorio"),
@@ -55,7 +57,7 @@ export default function EquipamentosFormPage({ searchParams }) {
     DataAquisicao: Yup.date().required("Campo obrigatorio"),
     UltimaManutencao: Yup.date(),
     Descricao: Yup.string(),
-    LocaisDeJogo: Yup.string(),
+    Status: Yup.string(),
   });
   return (
     <Pagina titulo="Cadastro de equipamento">
@@ -126,16 +128,22 @@ export default function EquipamentosFormPage({ searchParams }) {
             </Row>
             <Row className="mb-2">
               <Form.Group as={Col}>
-                <Form.Label>Proprietario (ID de jogador ou equipe):</Form.Label>
-                <Form.Control
-                  name="Proprietario"
-                  type="text"
+                <Form.Label>Proprietário:</Form.Label>
+                <InputMask
+                  mask="CPF: 999.999.999-99"
                   value={values.Proprietario}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  isValid={touched.Proprietario && !errors.Proprietario}
-                  isInvalid={touched.Proprietario && errors.Proprietario}
-                />
+                >
+                  {(inputProps) => (
+                    <Form.Control
+                      {...inputProps}
+                      name="Proprietario"
+                      isValid={touched.Proprietario && !errors.Proprietario}
+                      isInvalid={touched.Proprietario && errors.Proprietario}
+                    />
+                  )}
+                </InputMask>
                 <Form.Control.Feedback type="invalid">
                   {errors.Proprietario}
                 </Form.Control.Feedback>
@@ -144,15 +152,20 @@ export default function EquipamentosFormPage({ searchParams }) {
             <Row className="mb-2">
               <Form.Group as={Col}>
                 <Form.Label>Condicao:</Form.Label>
-                <Form.Control
+                <Form.Select
                   name="Condicao"
-                  type="text"
                   value={values.Condicao}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   isValid={touched.Condicao && !errors.Condicao}
                   isInvalid={touched.Condicao && errors.Condicao}
-                />
+                >
+                  <option value="">Selecione</option>
+                  <option value="Novo">Novo</option>
+                  <option value="Usado">Usado</option>
+                  <option value="Ruim">Ruim</option>
+                  <option value="Descartar">Descartar</option>
+                </Form.Select>
                 <Form.Control.Feedback type="invalid">
                   {errors.Condicao}
                 </Form.Control.Feedback>
@@ -211,18 +224,23 @@ export default function EquipamentosFormPage({ searchParams }) {
             </Row>
             <Row className="mb-2">
               <Form.Group as={Col}>
-                <Form.Label>Locais de Jogo:</Form.Label>
-                <Form.Control
-                  name="LocaisDeJogo"
-                  type="text"
-                  value={values.LocaisDeJogo}
+                <Form.Label>Status do Equipamento:</Form.Label>
+                <Form.Select
+                  name="Status"
+                  value={values.Status}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  isValid={touched.LocaisDeJogo && !errors.LocaisDeJogo}
-                  isInvalid={touched.LocaisDeJogo && errors.LocaisDeJogo}
-                />
+                  isValid={touched.Status && !errors.Status}
+                  isInvalid={touched.Status && errors.Status}
+                >
+                  <option value="">Selecione</option>
+                  <option value="Disponível">Disponível</option>
+                  <option value="Alugado">Alugado</option>
+                  <option value="Desativo">Desativo</option>
+                  <option value="Sem Identificador">Sem Identificador</option>
+                </Form.Select>
                 <Form.Control.Feedback type="invalid">
-                  {errors.LocaisDeJogo}
+                  {errors.Status}
                 </Form.Control.Feedback>
               </Form.Group>
             </Row>

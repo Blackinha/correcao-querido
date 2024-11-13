@@ -1,5 +1,5 @@
 "use client";
-import '../banner.css';
+import "../banner.css";
 import Pagina from "@/components/Pagina";
 import { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
@@ -8,7 +8,8 @@ import { FaPen, FaPlusCircle, FaTrash } from "react-icons/fa";
 export default function EventosPage() {
   const [eventos, setEventos] = useState([]);
   useEffect(() => {
-    const eventosLocalStorage = JSON.parse(localStorage.getItem("eventos")) || [];
+    const eventosLocalStorage =
+      JSON.parse(localStorage.getItem("eventos")) || [];
     setEventos(eventosLocalStorage);
     console.log(eventosLocalStorage);
   }, []);
@@ -37,7 +38,7 @@ export default function EventosPage() {
             <th>Organizador</th>
             <th>Equipes Participantes</th>
             <th>Regras</th>
-            <th>Observações</th>
+            <th>Horário</th>
             <th>Tipo de Evento</th>
             <th>Ações</th>
           </tr>
@@ -51,7 +52,7 @@ export default function EventosPage() {
               <td>{evento.organizador}</td>
               <td>{evento.equipesParticipantes}</td>
               <td>{evento.regras}</td>
-              <td>{evento.observacoes}</td>
+              <td>{evento.horario}</td>
               <td>{evento.tipoEvento}</td>
               <td className="text-center">
                 <Button className="me-2" href={`/eventos/form?id=${evento.id}`}>

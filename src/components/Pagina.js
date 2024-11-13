@@ -1,6 +1,13 @@
 "use client";
 
-import { Container, Nav, Navbar, Form, FormControl, Button } from "react-bootstrap";
+import {
+  Container,
+  Nav,
+  Navbar,
+  Form,
+  FormControl,
+  Button,
+} from "react-bootstrap";
 
 export default function Pagina({ titulo, children }) {
   return (
@@ -19,11 +26,14 @@ export default function Pagina({ titulo, children }) {
           <Form className="d-flex">
             <FormControl
               type="search"
+              disabled
               placeholder="Pesquisar"
               className="me-2"
               aria-label="Search"
             />
-            <Button variant="outline-light">Buscar</Button>
+            <Button disabled variant="outline-light">
+              Buscar
+            </Button>
           </Form>
         </Container>
       </Navbar>
