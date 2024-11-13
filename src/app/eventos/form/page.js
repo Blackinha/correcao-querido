@@ -3,10 +3,12 @@ import "../../banner.css";
 import Pagina from "@/components/Pagina";
 import { Formik } from "formik";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { FaArrowLeft, FaCheck } from "react-icons/fa";
 import { v4 as uuidv4 } from "uuid";
 import * as Yup from "yup";
+import InputMask from "react-input-mask";
 
 export default function EventosFormPage(props) {
   const router = useRouter();
@@ -157,8 +159,9 @@ export default function EventosFormPage(props) {
             <Row className="mb-2">
               <Form.Group as={Col}>
                 <Form.Label>Equipes Participantes:</Form.Label>
-                <Form.Select
+                <Form.Control
                   name="equipesParticipantes"
+                  type="text"
                   value={values.equipesParticipantes}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -168,14 +171,7 @@ export default function EventosFormPage(props) {
                   isInvalid={
                     touched.equipesParticipantes && errors.equipesParticipantes
                   }
-                >
-                  <option value="">Selecione:</option>
-                  {EquipesFiltradas.map((equipe) => (
-                    <option key={equipe.nome} value={equipe.nome}>
-                      {equipe.nome}
-                    </option>
-                  ))}
-                </Form.Select>
+                />
                 <Form.Control.Feedback type="invalid">
                   {errors.equipesParticipantes}
                 </Form.Control.Feedback>
