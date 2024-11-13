@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import InputMask from "react-input-mask"; 
 
 export default function CadastroJogadores() {
-  const [jogador, setJogador] = useState({
+  const [Jogadores, setJogadores] = useState({
     nome: "",
     apelido: "",
     equipe: "",
@@ -48,17 +48,17 @@ export default function CadastroJogadores() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setJogador({ ...jogador, [name]: value });
+    setJogadores({ ...Jogadores, [name]: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const jogadoresLocalStorage = JSON.parse(localStorage.getItem("Jogadores")) || [];
-    jogador.id = Date.now();
-    jogadoresLocalStorage.push(jogador);
-    localStorage.setItem("Jogadores", JSON.stringify(jogadoresLocalStorage));
-    alert("Jogador cadastrado com sucesso!");
-    router.push("/jogadores");
+    const JogadoresLocalStorage = JSON.parse(localStorage.getItem("Jogadores")) || [];
+    Jogadores.id = Date.now();
+    JogadoresLocalStorage.push(Jogadores);
+    localStorage.setItem("Jogadores", JSON.stringify(JogadoresLocalStorage));
+    alert("Jogadores cadastrado com sucesso!");
+    router.push("/Jogadores");
   };
 
   return (
@@ -69,7 +69,7 @@ export default function CadastroJogadores() {
           <Form.Control
             type="text"
             name="nome"
-            value={jogador.nome}
+            value={Jogadores.nome}
             onChange={handleChange}
             required
           />
@@ -80,7 +80,7 @@ export default function CadastroJogadores() {
           <Form.Control
             type="text"
             name="apelido"
-            value={jogador.apelido}
+            value={Jogadores.apelido}
             onChange={handleChange}
             required
           />
@@ -91,7 +91,7 @@ export default function CadastroJogadores() {
           <Form.Control
             as="select"
             name="equipe"
-            value={jogador.equipe}
+            value={Jogadores.equipe}
             onChange={handleChange}
             required
           >
@@ -109,7 +109,7 @@ export default function CadastroJogadores() {
           <Form.Control
             type="email"
             name="email"
-            value={jogador.email}
+            value={Jogadores.email}
             onChange={handleChange}
             required
           />
@@ -119,7 +119,7 @@ export default function CadastroJogadores() {
           <Form.Label>Telefone</Form.Label>
           <InputMask
             mask="(99) 99999-9999"
-            value={jogador.telefone}
+            value={Jogadores.telefone}
             onChange={handleChange}
           >
             {(inputProps) => (
@@ -139,7 +139,7 @@ export default function CadastroJogadores() {
             type="number"
             min="0"
             name="experiencia"
-            value={jogador.experiencia}
+            value={Jogadores.experiencia}
             onChange={handleChange}
             required
           />
@@ -150,14 +150,14 @@ export default function CadastroJogadores() {
           <Form.Control
             type="text"
             name="tipoArmaPreferida"
-            value={jogador.tipoArmaPreferida}
+            value={Jogadores.tipoArmaPreferida}
             onChange={handleChange}
             required
           />
         </Form.Group>
         
         <Button variant="primary" type="submit">
-          Cadastrar Jogador
+          Cadastrar Jogadores
         </Button>
       </Form>
     </Pagina>

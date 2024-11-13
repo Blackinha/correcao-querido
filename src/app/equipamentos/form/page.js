@@ -8,7 +8,6 @@ import { FaArrowLeft, FaCheck } from "react-icons/fa";
 import { v4 } from "uuid";
 import { Formik } from "formik";
 import * as Yup from "yup";
-
 export default function EquipamentosFormPage({ searchParams }) {
   const router = useRouter();
   const [modelosDeArma] = useState([
@@ -18,11 +17,10 @@ export default function EquipamentosFormPage({ searchParams }) {
     { nome: "G36" },
     { nome: "P90" },
   ]);
-
   const equipamentos = JSON.parse(localStorage.getItem("equipamentos")) || [];
   const id = searchParams?.id;
   const equipamentoEditada = equipamentos.find((item) => item.id === id);
-
+  
   function salvar(dados) {
     if (equipamentoEditada) {
       Object.assign(equipamentoEditada, dados);
@@ -35,7 +33,6 @@ export default function EquipamentosFormPage({ searchParams }) {
     alert("Equipamento criado com sucesso!");
     router.push("/equipamentos");
   }
-
   const initialValues = {
     nome: "",
     Tipo: "",
@@ -48,7 +45,6 @@ export default function EquipamentosFormPage({ searchParams }) {
     Descricao: "",
     LocaisDeJogo: "",
   };
-
   const validationSchema = Yup.object().shape({
     nome: Yup.string().required("Campo obrigatorio"),
     Tipo: Yup.string().required("Campo obrigatorio"),
@@ -61,7 +57,6 @@ export default function EquipamentosFormPage({ searchParams }) {
     Descricao: Yup.string(),
     LocaisDeJogo: Yup.string(),
   });
-
   return (
     <Pagina titulo="Cadastro de equipamento">
       <Formik
@@ -95,7 +90,6 @@ export default function EquipamentosFormPage({ searchParams }) {
                 </Form.Control.Feedback>
               </Form.Group>
             </Row>
-
             <Row className="mb-2">
               <Form.Group as={Col}>
                 <Form.Label>Tipo (e.g., Rifle, Pistola, Protecao):</Form.Label>
@@ -113,7 +107,6 @@ export default function EquipamentosFormPage({ searchParams }) {
                 </Form.Control.Feedback>
               </Form.Group>
             </Row>
-
             <Row className="mb-2">
               <Form.Group as={Col}>
                 <Form.Label>Fabricante:</Form.Label>
@@ -131,7 +124,6 @@ export default function EquipamentosFormPage({ searchParams }) {
                 </Form.Control.Feedback>
               </Form.Group>
             </Row>
-
             <Row className="mb-2">
               <Form.Group as={Col}>
                 <Form.Label>Proprietario (ID de jogador ou equipe):</Form.Label>
@@ -149,7 +141,6 @@ export default function EquipamentosFormPage({ searchParams }) {
                 </Form.Control.Feedback>
               </Form.Group>
             </Row>
-
             <Row className="mb-2">
               <Form.Group as={Col}>
                 <Form.Label>Condicao:</Form.Label>
@@ -167,7 +158,6 @@ export default function EquipamentosFormPage({ searchParams }) {
                 </Form.Control.Feedback>
               </Form.Group>
             </Row>
-
             <Row className="mb-2">
               <Form.Group as={Col}>
                 <Form.Label>Data de Aquisicao:</Form.Label>
@@ -185,7 +175,6 @@ export default function EquipamentosFormPage({ searchParams }) {
                 </Form.Control.Feedback>
               </Form.Group>
             </Row>
-
             <Row className="mb-2">
               <Form.Group as={Col}>
                 <Form.Label>Ultima Manutencao:</Form.Label>
@@ -203,7 +192,6 @@ export default function EquipamentosFormPage({ searchParams }) {
                 </Form.Control.Feedback>
               </Form.Group>
             </Row>
-
             <Row className="mb-2">
               <Form.Group as={Col}>
                 <Form.Label>Descricao:</Form.Label>
@@ -221,7 +209,6 @@ export default function EquipamentosFormPage({ searchParams }) {
                 </Form.Control.Feedback>
               </Form.Group>
             </Row>
-
             <Row className="mb-2">
               <Form.Group as={Col}>
                 <Form.Label>Locais de Jogo:</Form.Label>
@@ -239,7 +226,6 @@ export default function EquipamentosFormPage({ searchParams }) {
                 </Form.Control.Feedback>
               </Form.Group>
             </Row>
-
             <Form.Group className="text-end">
               <Button className="me-2" href="/equipamentos">
                 <FaArrowLeft /> Voltar

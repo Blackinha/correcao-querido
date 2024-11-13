@@ -21,6 +21,9 @@ export default function HomePage() {
     }
   }, []);
 
+  //apagar depois
+  const data = localStorage.getItem(`locaisdejogos`)
+//console.log(data)
   const lista = [
     {
       nome: "Equipamentos",
@@ -51,14 +54,14 @@ export default function HomePage() {
       link: "http://localhost:3000/Jogadores",
     },
     {
-      nome: "Locaisdejogos",
+      nome: "Locais de jogos",
       imagem:
         "https://catracalivre.com.br/cdn-cgi/image/f=auto,q=60,width=960,height=99999,fit=scale-down/wp-content/uploads/2020/09/diversao-garantida-nas-ferias-do-hotel-terras-altas.jpeg",
       quantidade: locaisdejogos.length,
       link: "/locaisdejogos",
     },
   ];
-
+console.log(`Locais de jogos quantidade: ${locaisdejogos.length}`)
   return (
     <Pagina>
       <Carousel className="my-4 carousel-custom">

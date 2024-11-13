@@ -9,30 +9,23 @@ import { FaPen, FaPlusCircle, FaTrash } from "react-icons/fa";
 export default function LocaisAirsoftPage() {
   const [locaisAirsoft, setLocaisAirsoft] = useState([]);
 
-
+  
   useEffect(() => {
-
-    const locaisAirsoftLocalStorage = JSON.parse(localStorage.getItem("locaisAirsoft"));
-
-
+    const locaisAirsoftLocalStorage = JSON.parse(localStorage.getItem("locaisdejogos"));
     if (locaisAirsoftLocalStorage && Array.isArray(locaisAirsoftLocalStorage)) {
       setLocaisAirsoft(locaisAirsoftLocalStorage);
     } else {
       setLocaisAirsoft([]);
     }
-
     console.log(locaisAirsoftLocalStorage);
   }, []);
 
-
+  
   function excluir(local) {
-
+ 
     if (window.confirm(`Deseja realmente excluir o local ${local.nome}?`)) {
-
       const novaLista = locaisAirsoft.filter((item) => item.id !== local.id);
-
-      localStorage.setItem("locaisAirsoft", JSON.stringify(novaLista));
-
+      localStorage.setItem("locaisdejogos", JSON.stringify(novaLista));
       setLocaisAirsoft(novaLista);
       alert("Local de Airsoft excluído com sucesso!");
     }
@@ -69,7 +62,7 @@ export default function LocaisAirsoftPage() {
                   <td>{local.cidade}</td>
                   <td>{local.estado}</td>
                   <td className="text-center">
-
+                    
                     <Button
                       className="me-2"
                       href={`/locaisdejogos/form?id=${local.id}`}

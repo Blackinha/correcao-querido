@@ -11,7 +11,6 @@ export default function EquipesPage() {
   useEffect(() => {
     const equipesLocalStorage = JSON.parse(localStorage.getItem("equipes")) || [];
     setEquipes(equipesLocalStorage);
-    console.log(equipesLocalStorage);
   }, []);
 
   function excluir(equipe) {

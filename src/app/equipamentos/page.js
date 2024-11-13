@@ -4,35 +4,24 @@ import Pagina from "@/components/Pagina";
 import { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import { FaPen, FaPlusCircle, FaTrash } from "react-icons/fa";
+import {excluir} from '../../utils/excluir.js'
 
-export default function equipamentosPage() {
-  const [equipamentos, setequipamentos] = useState([]);
+
+export default function EquipamentosPage() {
+  const [equipamentos, setEquipamentos] = useState([]);
+
 
   useEffect(() => {
-
-    const equipamentosLocalStorage =
-      JSON.parse(localStorage.getItem("equipamentos")) || [];
-
-    setequipamentos(equipamentosLocalStorage);
-    console.log(equipamentosLocalStorage);
+    const equipamentosLocalStorage =JSON.parse(localStorage.getItem("equipamentos")) || [];
+    setEquipamentos(equipamentosLocalStorage);
   }, []);
 
-
   function excluir(equipamento) {
-
-    if (window.confirm(`Deseja realmente excluir o equipamento ${equipamento.nome}?`)) {
-
-      const listaEquipamentos = JSON.parse(localStorage.getItem("equipamentos")) || [];
-
-
-      const novaLista = listaEquipamentos.filter((item) => item.id !== equipamento.id);
-
-
+    if (window.confirm(`Deseja realmente excluir o equipamento ${equipamento.nomeEquipamento}?`)) {
+      const equipamentos = JSON.parse(localStorage.getItem("equipamentos")) || [];
+      const novaLista = equipamentos.filter((item) => item.id !== equipamento.id);
       localStorage.setItem("equipamentos", JSON.stringify(novaLista));
-
-
-      setequipamentos(novaLista);
-
+      setEquipamentos(novaLista);
       alert("Equipamento excluído com sucesso!");
     }
   }
@@ -57,27 +46,25 @@ export default function equipamentosPage() {
           </tr>
         </thead>
         <tbody>
-          {equipamentos.map((equipamentos) => {
-            return (
-              <tr>
-                <td>{equipamentos.nome}</td>
-                <td>{equipamentos.tipo}</td>
-                <td>{equipamentos.fabricante}</td>
-                <td>{equipamentos.proprietário}</td>
-                <td>{equipamentos.condição}</td>
+          {equipamentos.map((equipamento) => {
+            return(
+              <tr key={equipamento.id}>
+                <td>{equipamento.nome}</td>
+                <td>{equipamento.Tipo}</td>
+                <td>{equipamento.Fabricante}</td>
+                <td>{equipamento.Proprietario}</td>
+                <td>{equipamento.Condicao}</td>
                 <td className="text-center">
                   <Button
-                    className="me-2"
-                    href={`/equipamentos/form?id=${equipamentos.id}`}
-                  >
+                    className="me-2" href={`/equipamentos/form?id=${equipamento.id}`}>
                     <FaPen />
                   </Button>
-                  <Button variant="danger" onClick={() => excluir(equipamentos)}>
+                  <Button variant="danger" onClick={() => excluir(equipamento)}>
                     <FaTrash />
                   </Button>
                 </td>
               </tr>
-            );
+            )
           })}
         </tbody>
       </Table>
